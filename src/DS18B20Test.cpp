@@ -9,19 +9,26 @@ To run; ./DS18B20Test
 #include "DS18B20.h"
 using namespace std;
 
-int main() {
+int main(int argc, char *argv[]) {
     double tempNow;
     char w1_address[16];
+    cout<< argc << endl;
+    if ( argc > 1 )
+    {
+        cout << argv[1] << endl;
+        strncpy(w1_address,argv[1],strlen(argv[1])+1);
+    }
+    else
+    { 
+        cout << "Missing device address"<<endl;   
+    }
     
-    cout << "Enter 1-Wire device address, including the '28-': ";
-    cin >> w1_address;
-    
-    cout << "The address you entered was " << w1_address << endl;
+    /* cout << "The address you entered was " << w1_address << endl; */
     
     DS18B20 w1Device1 (w1_address);
     tempNow = w1Device1.getTemp();
     
-    cout << "The current temperature is " << tempNow << " degrees Celsius" <<endl;
+    cout << tempNow << " °C" <<endl;
     
     return 0;
 }
